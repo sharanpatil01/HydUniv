@@ -12,42 +12,42 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping(value = "/student")
-public class StudentService {
+@RequestMapping(value = "/student/DB/")
+public class StudentServiceInDB {
 
 	@Autowired
-	StudentUtil stUtil;
+	StudentDBUtil stDbUtil;
 
 	private static String firstRestServiceURL = "url";
 
 	@RequestMapping(value = "/create/{studid}/{fn}/{ln}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Student createStudentPost(@PathVariable("studid") String studid,
 			@PathVariable("fn") String fn, @PathVariable("ln") String ln) {
-		Student student = stUtil.createStudent(studid, fn, ln);
+		Student student = stDbUtil.createStudent(studid, fn, ln);
 		return student;
 	}
 
 	@RequestMapping(value = "/update/{studid}/{fn}/{ln}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Student updateStudentPost(@PathVariable("studid") String studid,
 			@PathVariable("fn") String fn, @PathVariable("ln") String ln) {
-		Student student = stUtil.updateStudent(studid, fn, ln);
+		Student student = stDbUtil.updateStudent(studid, fn, ln);
 		return student;
 	}
 
 	@RequestMapping(value = "/delete/{studid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Student deleteStudent(@PathVariable("studid") String studid) {
-		Student student = stUtil.removeStudent(studid);
-		return student;
+	public String deleteStudent(@PathVariable("studid") String studid) {
+		String msg = stDbUtil.removeStudent(studid);
+		return msg;
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<Student> getStudents() {
-		return stUtil.getStudents();
+		return stDbUtil.getStudents();
 	}
 
 	@RequestMapping(value = "/find/{studId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Student getStudent(@PathVariable(value = "studId") String studId) {
-		return stUtil.getStudent(studId);
+		return stDbUtil.getStudent(studId);
 	}
 
 	@RequestMapping(value = "/getdetails/{studid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -86,11 +86,11 @@ public class StudentService {
 	}
 
 	public static String getFirstRestServiceURL() {
-		return StudentService.firstRestServiceURL;
+		return StudentServiceInDB.firstRestServiceURL;
 	}
 
 	public static void setFirstRestServiceURL(String firstRestServiceURL) {
-		StudentService.firstRestServiceURL = firstRestServiceURL;
+		StudentServiceInDB.firstRestServiceURL = firstRestServiceURL;
 	}
 
 }

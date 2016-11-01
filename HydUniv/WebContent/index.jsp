@@ -11,12 +11,19 @@ Hi<br>
 This is index.jsp page for "/HydUniv" proj.
 <br><br>
 
-i) http://localhost:8080/HydUniv/student/create/{studId}/{fn}/{ln} <br>
-ii)http://localhost:8080/HydUniv/student/update/{studId}/{fn}/{ln} <br>
-iii)http://localhost:8080/HydUniv/student/delete/{studId} <br>
-iv)http://localhost:8080/HydUniv/student/list <br>
-v) http://localhost:8080/HydUniv/student/find/{studId} <br>
-vi) http://localhost:8080/HydUniv/student/getdetails/{studId} <br><br><br>
+i) http://localhost:8080/HydUniv/student/DB/create/{studId}/{fn}/{ln} <br>
+ii)http://localhost:8080/HydUniv/student/DB/update/{studId}/{fn}/{ln} <br>
+iii)http://localhost:8080/HydUniv/student/DB/delete/{studId} <br>
+
+iv) <a href="student/list"> 
+	http://localhost:9080/HydUniv/student/list  </a> <br>
+	
+	
+v)<a href="student/DB/list">
+http://localhost:9080/HydUniv/student/DB/list</a>  <br>
+
+vi) http://localhost:8080/HydUniv/student/find/{studId} <br>
+vii) http://localhost:8080/HydUniv/student/getdetails/{studId} <br><br><br>
 
 ix)http://localhost:8080/HydUniv/student/geturl<br>
 x) http://localhost:8080/HydUniv/student/seturl?url=http://host:port/GOIEducationDept<br>

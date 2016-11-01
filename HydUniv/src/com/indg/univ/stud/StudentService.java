@@ -88,6 +88,12 @@ public class StudentService {
 		return getFirstRestServiceURL();
 	}
 
+	// http://localhost:8080/HydUniv/seturl?url=http://host:port/GOIEducationDept
+	@RequestMapping(value = "/geturl", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getBaseURLForFirstRestService() {
+		return getFirstRestServiceURL();
+	}
+
 	public static String getFirstRestServiceURL() {
 		return firstRestServiceURL;
 	}

@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +17,8 @@ public class StudentService {
 
 	@Autowired
 	StudentUtil stUtil;
+
+	private static String firstRestServiceURL = "";
 
 	// i) http://localhost:8080/HydUniv/student/create/{studId}/{fn}/{ln}
 	@RequestMapping(value = "/create/{studid}/{fn}/{ln}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,22 +57,43 @@ public class StudentService {
 	}
 
 	// vi) http://localhost:9080/HydUniv/student/getdetails/{studid}
-	@RequestMapping(value="/getdetails/{studid}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public Student getStudentsPastDetails(@PathVariable(value = "studid") String studid) {
+	@RequestMapping(value = "/getdetails/{studid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Student getStudentsPastDetails(
+			@PathVariable(value = "studid") String studid) {
 
-		String url = "http://localhost:9080/GOIEducationDept/goi/edu/student/find/";
-		url += studid;
-		
-		
-		
+		String url = "/goi/edu/student/find/";
+		if (firstRestServiceURL.isEmpty() || firstRestServiceURL == null) {
+			setFirstRestServiceURL("http://localhost:9080/GOIEducationDept");
+		}
+		String fullURL = firstRestServiceURL + url + studid;
+
 		System.out.println("200: Before Calling HydUniv.StudentService.getStudDetails() method!!");
 		RestTemplate restTemplate = new RestTemplate();
-		Student stud = restTemplate.getForObject(url, Student.class, 200);
+		Student stud = restTemplate.getForObject(fullURL, Student.class, 200);
 		System.out.println("220: After Calling HydUniv.StudentService.getStudDetails() method!!");
 		stud.setCitizenship("American");
-		stud.setLastName( stud.getLastName()+" !!!!");
+		stud.setLastName(stud.getLastName() + " !!!!");
 		return stud;
 
+	}
+
+	// http://localhost:8080/HydUniv/seturl?url=http://host:port/GOIEducationDept
+	@RequestMapping(value = "/seturl", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String setBaseURLForFirstRestService(@RequestParam(value = "url") String baseurl) {
+		if (baseurl == null || baseurl.isEmpty()) {
+			setFirstRestServiceURL("http://localhost:9080/GOIEducationDept");
+		} else {
+			setFirstRestServiceURL(baseurl);
+		}
+		return getFirstRestServiceURL();
+	}
+
+	public static String getFirstRestServiceURL() {
+		return firstRestServiceURL;
+	}
+
+	public static void setFirstRestServiceURL(String firstRestServiceURL) {
+		StudentService.firstRestServiceURL = firstRestServiceURL;
 	}
 
 }

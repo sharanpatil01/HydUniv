@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body bgcolor="yellow">
-hiii<br>
+Hi<br>
 This is index.jsp page for HydUniv proj.
 <br><br>
 
@@ -18,7 +18,10 @@ iv)http://localhost:8080/HydUniv/student/list <br>
 v) http://localhost:8080/HydUniv/student/find/{studId} <br>
 vi) http://localhost:8080/HydUniv/student/getdetails/{studId} <br>
 
-
-
+x) http://localhost:8080/HydUniv/seturl?url=http://host:port/GOIEducationDept
+xi) get input first webservice base url endpoint
+	set that into context
+	
+	
 </body>
 </html>
